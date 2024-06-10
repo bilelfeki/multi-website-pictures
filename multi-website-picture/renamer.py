@@ -8,9 +8,10 @@ def getInsideDirectory(directoryName:str):
 
 def filterOnlyDirectories(elementsInsideDirectory:list):
      for file in elementsInsideDirectory:
-          if(os.path.isfile('./'+ str(file))):
-               elementsInsideDirectory.remove(file)
-          return elementsInsideDirectory
+          directoryList=[]
+          if(os.path.isdir('./'+ str(file))):
+               directoryList.append(file)
+          return directoryList
 
 directories = filterOnlyDirectories(os.listdir('./'))
             
@@ -22,4 +23,7 @@ for directory in directories:
                extension=getExtension(image)
                currentImageName='./'+directory +'/'+subdirectory+'/'+image
                replacementImageName='./'+directory +'/'+subdirectory+'/'+'b-'+str(index)+'.'+extension
-               os.rename(currentImageName,replacementImageName)
+               try:
+                    os.rename(currentImageName,replacementImageName)
+               except:
+                    print('file renamed successfully')
